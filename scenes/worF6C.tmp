@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://cs4a7w36rjn16"]
+
+[ext_resource type="PackedScene" uid="uid://dq5k6du34euhv" path="res://scenes/entrance.tscn" id="2_1dhht"]
+[ext_resource type="PackedScene" uid="uid://qdnf5nfumaox" path="res://scenes/exit.tscn" id="3_bu3j4"]
+[ext_resource type="PackedScene" uid="uid://dj1ipt1frjbrj" path="res://scenes/box_lrg.tscn" id="4_2mxjv"]
+[ext_resource type="PackedScene" uid="uid://v3g2befbyjxt" path="res://scenes/auto_turret.tscn" id="4_kvtfk"]
+[ext_resource type="PackedScene" uid="uid://bbcfvmrop70aj" path="res://scenes/box_med.tscn" id="5_fdiiy"]
+
+[node name="World" type="Node2D"]
+
+[node name="Entrance" parent="." instance=ExtResource("2_1dhht")]
+position = Vector2(35, 73)
+
+[node name="Exit" parent="." instance=ExtResource("3_bu3j4")]
+position = Vector2(227, 72)
+
+[node name="auto_turret" parent="." instance=ExtResource("4_kvtfk")]
+position = Vector2(131, 171)
+
+[node name="StaticBody2D" parent="." instance=ExtResource("4_2mxjv")]
+position = Vector2(238, 117)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("5_fdiiy")]
+position = Vector2(212, 171)

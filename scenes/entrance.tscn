@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq5k6du34euhv"]
+
+[ext_resource type="Texture2D" uid="uid://dh5t4r3nxmb5u" path="res://assets/square.png" id="1_7q82w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvemm"]
+size = Vector2(15.9999, 16.0001)
+
+[node name="Entrance" type="Area2D"]
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 0.498039, 1)
+texture = ExtResource("1_7q82w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.38419e-07)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_rvemm")

@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://cbbdrvodg3bvj"]
+
+[ext_resource type="Script" path="res://scripts/vision_cone.gd" id="1_8kn8u"]
+[ext_resource type="Shader" path="res://shaders/vision_cone.gdshader" id="2_ybl8d"]
+[ext_resource type="Script" path="res://scripts/vision_cone_mesh.gd" id="3_v4ijs"]
+[ext_resource type="Script" path="res://scripts/state_machine.gd" id="4_hdtn2"]
+[ext_resource type="Script" path="res://scripts/states/vision_cone/vision_cone_idle.gd" id="5_s80cy"]
+[ext_resource type="Script" path="res://scripts/states/vision_cone/vision_cone_fill.gd" id="6_5mvi0"]
+[ext_resource type="Script" path="res://scripts/states/vision_cone/vision_cone_alert.gd" id="7_kcqar"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cqosj"]
+shader = ExtResource("2_ybl8d")
+shader_parameter/first_color = Color(1, 0, 0, 1)
+shader_parameter/second_color = Color(1, 1, 0, 1)
+shader_parameter/size = 0.5
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_7ofqc"]
+
+[node name="vision_cone" type="Node2D"]
+script = ExtResource("1_8kn8u")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 2
+collide_with_areas = true
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+z_index = -1
+material = SubResource("ShaderMaterial_cqosj")
+texture = SubResource("CanvasTexture_7ofqc")
+script = ExtResource("3_v4ijs")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_hdtn2")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_s80cy")
+
+[node name="Fill" type="Node" parent="StateMachine"]
+script = ExtResource("6_5mvi0")
+
+[node name="Alert" type="Node" parent="StateMachine"]
+script = ExtResource("7_kcqar")
+
+[connection signal="player_detected" from="." to="MeshInstance2D" method="_on_player_detected"]
+[connection signal="player_not_detected" from="." to="MeshInstance2D" method="_on_player_not_detected"]

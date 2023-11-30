@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8gpve7ervbhd"]
+
+[ext_resource type="Script" path="res://scripts/VCR.gd" id="1_wpve7"]
+
+[node name="VCR" type="Node2D" groups=["VCR"]]
+script = ExtResource("1_wpve7")

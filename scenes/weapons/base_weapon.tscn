@@ -1,0 +1,40 @@
+[gd_scene load_steps=9 format=3 uid="uid://b88xmu3bv5uvb"]
+
+[ext_resource type="Script" path="res://scripts/states/weapons/base_weapon.gd" id="1_84tjv"]
+[ext_resource type="PackedScene" uid="uid://dymkxk0lje6n6" path="res://scenes/bullet.tscn" id="2_f7w6w"]
+[ext_resource type="Texture2D" uid="uid://bh0pj24oa21ap" path="res://assets/WeaponsSpriteSheet-sheet.png" id="3_bgr6g"]
+[ext_resource type="PackedScene" uid="uid://cg7oplhqnjtj2" path="res://scenes/weapons/shells/base_shell.tscn" id="3_hyttj"]
+[ext_resource type="Script" path="res://scripts/state_machine.gd" id="4_n84ov"]
+[ext_resource type="Script" path="res://scripts/states/weapons/Weapon_Active_State.gd" id="5_8af4w"]
+[ext_resource type="Script" path="res://scripts/states/weapons/Weapon_Inactive_State.gd" id="6_yon8g"]
+[ext_resource type="Script" path="res://scripts/states/weapons/Weapon_Reload_State.gd" id="7_2e1ad"]
+
+[node name="Base_Weapon" type="Node2D"]
+script = ExtResource("1_84tjv")
+Bullet = ExtResource("2_f7w6w")
+Shell = ExtResource("3_hyttj")
+
+[node name="Sprite_Rotator" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite_Rotator"]
+position = Vector2(4, 0)
+texture = ExtResource("3_bgr6g")
+hframes = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+autostart = true
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_n84ov")
+initial_state = NodePath("Weapon_Active_State")
+
+[node name="Weapon_Active_State" type="Node" parent="StateMachine"]
+script = ExtResource("5_8af4w")
+
+[node name="Weapon_Inactive_State" type="Node" parent="StateMachine"]
+script = ExtResource("6_yon8g")
+
+[node name="Weapon_Reload_State" type="Node" parent="StateMachine"]
+script = ExtResource("7_2e1ad")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs4a7w36rjn16"]
+
+[ext_resource type="PackedScene" uid="uid://dq5k6du34euhv" path="res://scenes/entrance.tscn" id="2_1dhht"]
+[ext_resource type="PackedScene" uid="uid://qdnf5nfumaox" path="res://scenes/exit.tscn" id="3_bu3j4"]
+[ext_resource type="PackedScene" uid="uid://dj1ipt1frjbrj" path="res://scenes/box_lrg.tscn" id="4_2mxjv"]
+[ext_resource type="Script" path="res://scenes/box_lrg.gd" id="4_leyfw"]
+
+[node name="World" type="Node2D"]
+
+[node name="Entrance" parent="." instance=ExtResource("2_1dhht")]
+position = Vector2(35, 73)
+
+[node name="Exit" parent="." instance=ExtResource("3_bu3j4")]
+position = Vector2(227, 72)
+
+[node name="StaticBody2D" parent="." instance=ExtResource("4_2mxjv")]
+position = Vector2(176, 140)
+script = ExtResource("4_leyfw")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs4a7w36rjn16"]
+
+[ext_resource type="PackedScene" uid="uid://dqblwph5s4ss5" path="res://scenes/player.tscn" id="1_imt3o"]
+[ext_resource type="PackedScene" uid="uid://b7ugf24div73d" path="res://scenes/wall.tscn" id="2_2cf7w"]
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_imt3o")]
+
+[node name="StaticBody2D" parent="." instance=ExtResource("2_2cf7w")]
+visible = false
+position = Vector2(123, 65)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("2_2cf7w")]
+visible = false
+position = Vector2(163, 65)
+
+[node name="StaticBody2D3" parent="." instance=ExtResource("2_2cf7w")]
+visible = false
+position = Vector2(204, 65)
+
+[node name="StaticBody2D4" parent="." instance=ExtResource("2_2cf7w")]
+visible = false
+position = Vector2(205, 106)
+
+[node name="StaticBody2D5" parent="." instance=ExtResource("2_2cf7w")]
+visible = false
+position = Vector2(205, 147)

@@ -1,0 +1,98 @@
+[gd_scene load_steps=11 format=3 uid="uid://dqblwph5s4ss5"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_lxfn2"]
+[ext_resource type="Texture2D" uid="uid://dymfo5nfeu12s" path="res://assets/player/player-sheet.png" id="2_rf8t5"]
+[ext_resource type="Script" path="res://scripts/state_machine.gd" id="3_sj5dq"]
+[ext_resource type="Script" path="res://scenes/Player_Idle_State.gd" id="4_yu1gq"]
+[ext_resource type="Script" path="res://scenes/Player_Run_State.gd" id="5_jm3ql"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p7tyh"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_e3e6f"]
+resource_name = "player_idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_bsdgv"]
+resource_name = "player_run"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_2tona"]
+resource_name = "player_sneak"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xdojr"]
+_data = {
+"player_idle": SubResource("Animation_e3e6f"),
+"player_run": SubResource("Animation_bsdgv"),
+"player_sneak": SubResource("Animation_2tona")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine")]
+collision_layer = 2
+script = ExtResource("1_lxfn2")
+state_machine = NodePath("StateMachine")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -23)
+texture = ExtResource("2_rf8t5")
+hframes = 26
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_p7tyh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "player_idle"
+libraries = {
+"": SubResource("AnimationLibrary_xdojr")
+}
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_sj5dq")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_yu1gq")
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource("5_jm3ql")
