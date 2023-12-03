@@ -1,4 +1,4 @@
-extends Area2D
+extends Sprite2D
 
 @export var first_color : Color
 @export var second_color : Color

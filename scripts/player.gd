@@ -3,7 +3,6 @@ extends CharacterBody2D
 signal on_player_rewind
 signal on_player_done_rewind
 signal on_trigger_pressed
-signal on_player_damaged
 
 @export var speed := 150.0
 @export var acceleration := 10.0
@@ -15,6 +14,7 @@ signal on_player_damaged
 @onready var weapon_holder := $"Weapon Holder"
 @onready var game_manager := get_node("/root/GameManager")
 
+var player_health = 5
 var weapon_sprite
 var input_direction : Vector2
 
@@ -27,8 +27,6 @@ func _process(_delta) -> void:
 			state_machine.transition_to("Rewind")
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		emit_signal("on_trigger_pressed")
-	if Input.is_action_just_pressed('P'):
-		emit_signal("on_player_damaged")
 
 func get_input_direction():
 	input_direction = Input.get_vector("left", "right", "up", "down")
@@ -51,10 +49,10 @@ func flip_sprite(dir):
 	
 func hide_weapon(is_hidden):
 	weapon_holder.visible = !is_hidden
-	
-func take_damage():
-	$Camera2D.apply_shake()
 
 func rewind_complete():
 	state_machine.transition_to("Idle")
 	emit_signal('on_player_done_rewind')
+
+func on_take_damage():
+	$Camera2D.apply_shake()

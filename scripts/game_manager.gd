@@ -9,6 +9,7 @@ var rewind_speed = 2.0
 var recording_duration = 3.0
 
 func _ready():
+	#DisplayServer.window_set_size(Vector2(1920, 1080))
 	start_game()
 	
 func start_game():

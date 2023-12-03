@@ -3,11 +3,11 @@ extends Node2D
 
 func set_direction(dir):
 	if dir.x > 0:
-		$AnimatedSprite2D.position.x = -40.0
-		$AnimatedSprite2D.scale.x = 1.0
+		$AnimatedSprite2D.offset.x = -48
+		$AnimatedSprite2D.flip_h = false
 	else:
-		$AnimatedSprite2D.position.x = 40.0
-		$AnimatedSprite2D.scale.x = -1.0
+		$AnimatedSprite2D.offset.x = 48
+		$AnimatedSprite2D.flip_h = true
 
 
 func _on_timer_timeout():

@@ -9,6 +9,7 @@ var damage_overlay
 func _ready():
 	damage_overlay = $"Damage Overlay"
 	damage_overlay.modulate = second_color
+	current_lerp_time = lerp_time
 
 func _process(delta):
 	current_lerp_time += delta
@@ -18,6 +19,6 @@ func _process(delta):
 	var perc = current_lerp_time / lerp_time
 	damage_overlay.modulate = lerp(first_color, second_color, perc)
 
-
-func _on_player_on_player_damaged():
+func _on_health_reduced(health_value):
 	current_lerp_time = 0
+	$player_heart_container.update_health(health_value)

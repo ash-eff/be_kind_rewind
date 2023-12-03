@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var Bullet : PackedScene
+@export var Projectile : PackedScene
 @export var Shell : PackedScene
 @export var fireRate := 1.0
 
@@ -9,8 +9,8 @@ extends Node2D
 @onready var sprite_rotator := $Sprite_Rotator
 @onready var weapon_sprite := sprite_rotator.get_node("Sprite2D")
 
-var number_of_bullets = 8
-var spread_angle = 35 
+var number_of_bullets = 6
+var spread_angle = 40
 var new_direction = Vector2.ZERO 
 var state_machine 
 
@@ -24,6 +24,18 @@ func shoot():
 			
 func reload():
 	pass
+	
+func get_bullet_speed_adjustment():
+	var player_speed = owner.velocity.length()
+	var player_velocity = owner.velocity.normalized() * player_speed
+	var dot_product = player_velocity.normalized().dot(get_direction().normalized())
+	if dot_product > 0:
+		return player_speed * 2
+	elif dot_product < 0:
+		return 0
+	else:
+		return 0
+
 	
 func eject_shell():
 	var dir = get_direction()

@@ -4,7 +4,7 @@ func enter(_msg:= {}) -> void:
 	owner.hide_weapon(false)
 	owner.set_animation('player_idle')
 
-func update(_delta: float) -> void:
+func physics_update(_delta: float) -> void:
 	var player_input_direction = owner.get_input_direction()
 	owner.velocity = lerp(owner.velocity, player_input_direction * owner.speed, _delta * owner.acceleration)
 	owner.move_and_slide()

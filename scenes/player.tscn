@@ -1,17 +1,19 @@
-[gd_scene load_steps=21 format=3 uid="uid://dqblwph5s4ss5"]
+[gd_scene load_steps=24 format=3 uid="uid://dqblwph5s4ss5"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_2kbhf"]
 [ext_resource type="Texture2D" uid="uid://dymfo5nfeu12s" path="res://assets/player/player-sheet.png" id="2_rf8t5"]
 [ext_resource type="PackedScene" uid="uid://daunfutmlfpqa" path="res://scenes/weapons/shotgun.tscn" id="3_gcghw"]
 [ext_resource type="Script" path="res://scripts/state_machine.gd" id="3_sj5dq"]
 [ext_resource type="Script" path="res://scripts/states/player/Player_Idle_State.gd" id="4_n6nkm"]
+[ext_resource type="PackedScene" uid="uid://degv7qjromapo" path="res://scenes/weapons/projectiles/shotgun_projectile.tscn" id="4_snhkg"]
 [ext_resource type="Script" path="res://scripts/states/player/Player_Run_State.gd" id="5_qea78"]
 [ext_resource type="Script" path="res://scripts/states/player/Player_Rewind_State.gd" id="6_7sytb"]
 [ext_resource type="PackedScene" uid="uid://c8gpve7ervbhd" path="res://scenes/vcr.tscn" id="8_xgku6"]
 [ext_resource type="PackedScene" uid="uid://odwmkap2t684" path="res://scenes/cursor.tscn" id="9_75km8"]
-[ext_resource type="Script" path="res://scenes/Camera2D.gd" id="9_hpjyw"]
-[ext_resource type="Script" path="res://scenes/Player UI.gd" id="11_s6yl4"]
-[ext_resource type="Texture2D" uid="uid://dh5t4r3nxmb5u" path="res://assets/square.png" id="11_uahv3"]
+[ext_resource type="Script" path="res://scripts/Camera2D.gd" id="9_ejmuy"]
+[ext_resource type="PackedScene" uid="uid://b0a8p8eueioqg" path="res://scenes/player_ui.tscn" id="11_7kyhq"]
+[ext_resource type="PackedScene" uid="uid://bevl7o0nkebw6" path="res://scenes/health.tscn" id="12_1xqbg"]
+[ext_resource type="PackedScene" uid="uid://b68rmtc3d2rg5" path="res://scenes/hurtbox.tscn" id="13_vteu4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p7tyh"]
 radius = 4.0
@@ -128,9 +130,13 @@ _data = {
 "player_static": SubResource("Animation_irphm")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y77hk"]
+size = Vector2(10, 15)
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_2kbhf")
-speed = 75.0
+speed = 200.0
+acceleration = 20.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -142,6 +148,7 @@ hframes = 34
 position = Vector2(0, -6)
 
 [node name="Shotgun" parent="Weapon Holder" instance=ExtResource("3_gcghw")]
+Projectile = ExtResource("4_snhkg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
@@ -169,26 +176,26 @@ script = ExtResource("6_7sytb")
 [node name="VCR" parent="." instance=ExtResource("8_xgku6")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
 position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-script = ExtResource("9_hpjyw")
+position_smoothing_speed = 20.0
+script = ExtResource("9_ejmuy")
 
 [node name="Cursor" parent="." instance=ExtResource("9_75km8")]
 
-[node name="Player UI" type="CanvasLayer" parent="."]
-script = ExtResource("11_s6yl4")
-first_color = Color(1, 0, 0, 0.392157)
-second_color = Color(1, 0, 0, 0)
+[node name="Player UI" parent="." instance=ExtResource("11_7kyhq")]
 
-[node name="Damage Overlay" type="TextureRect" parent="Player UI"]
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("11_uahv3")
+[node name="Health" parent="." instance=ExtResource("12_1xqbg")]
+max_health = 5
 
-[connection signal="on_player_damaged" from="." to="." method="take_damage"]
-[connection signal="on_player_damaged" from="." to="Player UI" method="_on_player_on_player_damaged"]
+[node name="Hurtbox" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("13_vteu4")]
+health_component = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_y77hk")
+
 [connection signal="rewind_complete" from="VCR" to="." method="rewind_complete"]
+[connection signal="on_health_reduced" from="Health" to="Player UI" method="_on_health_reduced"]
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
+[connection signal="on_take_damage" from="Hurtbox" to="." method="on_take_damage"]

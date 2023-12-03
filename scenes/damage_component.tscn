@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://utbfejorq51e"]
+
+[ext_resource type="Script" path="res://scripts/damage_component.gd" id="1_ouahq"]
+
+[node name="DamageComponent" type="Area2D" groups=["player_damage"]]
+collision_layer = 0
+script = ExtResource("1_ouahq")

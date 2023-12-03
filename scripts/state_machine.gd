@@ -19,7 +19,7 @@ func _process(delta):
 	state.update(delta)
 	
 func _physics_process(delta):
-	state.update(delta)
+	state.physics_update(delta)
 	
 func transition_to(target_state_name: String, msg: Dictionary = {}) -> void:
 	if not has_node(target_state_name):

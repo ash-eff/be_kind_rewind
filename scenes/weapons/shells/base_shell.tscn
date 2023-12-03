@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=3 uid="uid://cg7oplhqnjtj2"]
 
+[ext_resource type="Script" path="res://scripts/weapon_ammo/base_shell.gd" id="1_5lkwi"]
 [ext_resource type="Texture2D" uid="uid://cio6cmqvvk5ut" path="res://assets/shells.png" id="1_j5ovu"]
-[ext_resource type="Script" path="res://scripts/base_shell.gd" id="1_x754c"]
 [ext_resource type="PackedScene" uid="uid://c8gpve7ervbhd" path="res://scenes/vcr.tscn" id="3_eptix"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ubj5b"]
@@ -87,7 +87,7 @@ region = Rect2(1824, 0, 96, 48)
 [sub_resource type="SpriteFrames" id="SpriteFrames_r2xal"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_ubj5b")
 }, {
 "duration": 1.0,
@@ -177,11 +177,10 @@ animations = [{
 }]
 
 [node name="base_shell" type="Node2D"]
-script = ExtResource("1_x754c")
+script = ExtResource("1_5lkwi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(48, 0)
-scale = Vector2(-1, 1)
+z_index = 2
 sprite_frames = SubResource("SpriteFrames_r2xal")
 animation = &"eject"
 autoplay = "eject"

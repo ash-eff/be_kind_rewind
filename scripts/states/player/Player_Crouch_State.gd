@@ -9,9 +9,9 @@ func handle_input(_event: InputEvent) -> void:
 		if _event.keycode == KEY_SHIFT:
 			owner.state_machine.transition_to("Idle")
 
-func update(_delta: float) -> void:
+func physics_update(_delta: float) -> void:
 	var player_input_direction = owner.get_input_direction()
-	owner.velocity = lerp(owner.velocity, player_input_direction * (owner.speed / 4.0), _delta * owner.acceleration)
+	owner.velocity = lerp(owner.velocity, player_input_direction * owner.speed, _delta * owner.acceleration)
 	owner.move_and_slide()
 	owner.flip_sprite(owner.get_direction_to_mouse())
 	if player_input_direction != Vector2.ZERO:

@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwfx4h0lix30h"]
+
+[ext_resource type="Script" path="res://scripts/player_heart_container.gd" id="1_r4vj4"]
+[ext_resource type="Texture2D" uid="uid://b6g8v10yx8qgf" path="res://assets/player/ui_heart1.png" id="2_hp4dm"]
+
+[node name="player_heart_container" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 5
+script = ExtResource("1_r4vj4")
+
+[node name="1" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_hp4dm")
+stretch_mode = 2
+
+[node name="2" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_hp4dm")
+stretch_mode = 2
+
+[node name="3" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_hp4dm")
+stretch_mode = 2
+
+[node name="4" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_hp4dm")
+stretch_mode = 2
+
+[node name="5" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_hp4dm")
+stretch_mode = 2
