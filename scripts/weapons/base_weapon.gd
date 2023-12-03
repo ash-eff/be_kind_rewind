@@ -9,7 +9,7 @@ extends Node2D
 @onready var sprite_rotator := $Sprite_Rotator
 @onready var weapon_sprite := sprite_rotator.get_node("Sprite2D")
 
-var number_of_bullets = 6
+var number_of_bullets = 7
 var spread_angle = 40
 var new_direction = Vector2.ZERO 
 var state_machine 

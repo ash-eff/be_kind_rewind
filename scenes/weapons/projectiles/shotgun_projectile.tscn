@@ -1,28 +1,31 @@
 [gd_scene load_steps=6 format=3 uid="uid://degv7qjromapo"]
 
-[ext_resource type="Texture2D" uid="uid://dh5t4r3nxmb5u" path="res://assets/square.png" id="1_7btur"]
+[ext_resource type="Texture2D" uid="uid://g3t4uevwigep" path="res://assets/projectile.png" id="1_50kud"]
 [ext_resource type="Script" path="res://scripts/weapon_ammo/projectile.gd" id="2_ggvcn"]
 [ext_resource type="PackedScene" uid="uid://utbfejorq51e" path="res://scenes/damage_component.tscn" id="3_ykpr8"]
 [ext_resource type="PackedScene" uid="uid://c8gpve7ervbhd" path="res://scenes/vcr.tscn" id="4_ak75u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u7hbs"]
-size = Vector2(16, 16)
+size = Vector2(16, 12)
 
-[node name="shotgun_projectile" type="Sprite2D"]
-position = Vector2(3.5, 0)
-scale = Vector2(0.6875, 0.5)
-texture = ExtResource("1_7btur")
+[node name="RigidBody2D" type="RigidBody2D"]
+gravity_scale = 0.0
 script = ExtResource("2_ggvcn")
-projectile_life_time = 0.5
+projectile_life_time = 0.3
+
+[node name="shotgun_projectile" type="Sprite2D" parent="."]
+position = Vector2(8, 2.38419e-07)
+texture = ExtResource("1_50kud")
 
 [node name="DamageComponent" parent="." instance=ExtResource("3_ykpr8")]
+position = Vector2(8, 2.38419e-07)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageComponent"]
-position = Vector2(1.43051e-06, 0)
 shape = SubResource("RectangleShape2D_u7hbs")
 
 [node name="VCR" parent="." instance=ExtResource("4_ak75u")]
+position = Vector2(8, 2.38419e-07)
 can_be_destroyed = true
 
-[connection signal="rewind_complete" from="VCR" to="." method="_on_vcr_rewind_complete"]
-[connection signal="rewind_start" from="VCR" to="." method="_on_vcr_rewind_start"]
+[connection signal="rewind_complete" from="VCR" to="shotgun_projectile" method="_on_vcr_rewind_complete"]
+[connection signal="rewind_start" from="VCR" to="shotgun_projectile" method="_on_vcr_rewind_start"]

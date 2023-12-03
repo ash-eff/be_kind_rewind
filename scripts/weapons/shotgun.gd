@@ -18,8 +18,8 @@ func shoot():
 			var look_direction = Vector2(cos(deg_to_rad(new_angle)), sin(deg_to_rad(new_angle))).normalized()
 			var projectile = Projectile.instantiate()
 			
-			
-			projectile.direction = look_direction
+			projectile.position = get_global_position()
 			projectile.look_at(look_direction)
+			projectile.set_direction_angle(new_angle)
 			world.add_child(projectile)
-			projectile.global_position = global_position
+
